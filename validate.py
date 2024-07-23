@@ -14,13 +14,13 @@ def get_validate_env(env_paras):
     valid_data_files = os.listdir(file_path)
     for i in range(len(valid_data_files)):
         valid_data_files[i] = file_path+valid_data_files[i]
-    env = gym.make('fjsp-v0', case=valid_data_files, env_paras=env_paras, data_source='file')
-    return env
+    return gym.make('fjsp-v0', case=valid_data_files, env_paras=env_paras, data_source='file')
 
 def validate(env_paras, env, model_policy):
     '''
     Validate the policy during training, and the process is similar to test
     '''
+    env.reset()
     start = time.time()
     batch_size = env_paras["batch_size"]
     memory = PPO_model.Memory()
@@ -31,7 +31,7 @@ def validate(env_paras, env, model_policy):
     while ~done:
         with torch.no_grad():
             actions = model_policy.act(state, memory, dones, flag_sample=False, flag_train=False)
-        state, rewards, dones = env.step(actions)
+        state, rewards, dones, _ = env.step(actions)
         done = dones.all()
     gantt_result = env.validate_gantt()[0]
     if not gantt_result:

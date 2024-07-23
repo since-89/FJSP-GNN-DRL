@@ -94,6 +94,7 @@ def main():
             nums_ope = [random.randint(opes_per_job_min, opes_per_job_max) for _ in range(num_jobs)]
             case = CaseGenerator(num_jobs, num_mas, opes_per_job_min, opes_per_job_max, nums_ope=nums_ope)
             env = gym.make('fjsp-v0', case=case, env_paras=env_paras)
+            env.reset()
             print('num_job: ', num_jobs, '\tnum_mas: ', num_mas, '\tnum_opes: ', sum(nums_ope))
 
         # Get state and completion signal
@@ -106,7 +107,7 @@ def main():
         while ~done:
             with torch.no_grad():
                 actions = model.policy_old.act(state, memories, dones)
-            state, rewards, dones = env.step(actions)
+            state, rewards, dones, _ = env.step(actions)
             done = dones.all()
             memories.rewards.append(rewards)
             memories.is_terminals.append(dones)

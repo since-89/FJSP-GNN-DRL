@@ -18,14 +18,15 @@ Implementation of the IEEE TII paper [Flexible Job Shop Scheduling via Graph Neu
 
 ### Installation
 
-* python $\ge$ 3.6.13
-* pytorch $\ge$ 1.8.1
-* gym $\ge$ 0.18.0
-* numpy $\ge$ 1.19.5
-* pandas $\ge$ 1.1.5
-* visdom $\ge$ 0.1.8.9
+Install using:
 
-Note that pynvml is used in ```test.py``` to avoid excessive memory usage of GPU, please modify the code when using CPU.
+```shell
+pip install -r requirements.txt
+```
+
+Tested with python 3.10 on macOS.
+
+For GPU usage, please install `pynvml`. It is used in ```test.py``` to avoid excessive memory usage of GPU.
 
 ### Introduction
 

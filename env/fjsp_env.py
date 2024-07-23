@@ -300,7 +300,7 @@ class FJSPEnv(gym.Env):
         self.state.update(self.batch_idxes, self.feat_opes_batch, self.feat_mas_batch, self.proc_times_batch,
             self.ope_ma_adj_batch, self.mask_job_procing_batch, self.mask_job_finish_batch, self.mask_ma_procing_batch,
                           self.ope_step_batch, self.time)
-        return self.state, self.reward_batch, self.done_batch
+        return self.state, self.reward_batch, self.done_batch, None
 
     def if_no_eligible(self):
         '''
