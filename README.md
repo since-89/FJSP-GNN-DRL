@@ -54,7 +54,7 @@ Note that disabling the ```validate_gantt()``` function in ```schedule()``` can 
 ### train
 
 ```
-python train.py
+python test_running.py
 ```
 
 Note that there should be a validation set of the corresponding size in ```./data_dev```.
@@ -62,7 +62,7 @@ Note that there should be a validation set of the corresponding size in ```./dat
 ### test
 
 ```
-python test.py
+python test_running.py
 ```
 Note that there should be model files (```*.pt```) in ```./model```.
 
