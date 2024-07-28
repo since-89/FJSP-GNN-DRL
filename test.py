@@ -64,6 +64,7 @@ def main():
 
     memories = PPO_model.Memory()
     model = PPO_model.PPO(model_paras, train_paras)
+    print("model", model)
     rules = test_paras["rules"]
     envs = []  # Store multiple environments
 
@@ -79,16 +80,20 @@ def main():
 
     # Generate data files and fill in the header
     str_time = time.strftime("%Y%m%d_%H%M%S", time.localtime(time.time()))
+
     save_path = './save/test_{0}'.format(str_time)
     os.makedirs(save_path)
+
     writer = pd.ExcelWriter(
         '{0}/makespan_{1}.xlsx'.format(save_path, str_time))  # Makespan data storage path
     writer_time = pd.ExcelWriter('{0}/time_{1}.xlsx'.format(save_path, str_time))  # time data storage path
+
     file_name = [test_files[i] for i in range(num_ins)]
     data_file = pd.DataFrame(file_name, columns=["file_name"])
     data_file.to_excel(writer, sheet_name='Sheet1', index=False)
     writer.save()
     writer.close()
+
     data_file.to_excel(writer_time, sheet_name='Sheet1', index=False)
     writer_time.save()
     writer_time.close()
@@ -161,11 +166,14 @@ def main():
             print("finish env {0}".format(i_ins))
         print("rule_spend_time: ", time.time() - step_time_last)
 
+    
         # Save makespan and time data to files
         data = pd.DataFrame(torch.tensor(makespans).t().tolist(), columns=[rule])
+
         data.to_excel(writer, sheet_name='Sheet1', index=False, startcol=i_rules + 1)
         writer.save()
         writer.close()
+
         data = pd.DataFrame(torch.tensor(times).t().tolist(), columns=[rule])
         data.to_excel(writer_time, sheet_name='Sheet1', index=False, startcol=i_rules + 1)
         writer_time.save()

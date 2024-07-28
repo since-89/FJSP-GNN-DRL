@@ -112,6 +112,8 @@ class GATedge(nn.Module):
         b = torch.sum(a, dim=-3)
         c = feat_dst * alpha_kk.squeeze().unsqueeze(-1)
         nu_k_prime = torch.sigmoid(b+c)
+        print("machine embedding")
+        print(nu_k_prime)
         return nu_k_prime
 
 class MLPsim(nn.Module):
@@ -165,4 +167,6 @@ class MLPsim(nn.Module):
         a = adj.unsqueeze(-1) * feat.unsqueeze(-3)
         b = torch.sum(a, dim=-2)
         c = self.project(b)
+        print("operations embedding")
+        print(c)
         return c
